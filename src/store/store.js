@@ -6,9 +6,11 @@
 //存储入口
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import indexRouter from './index'
+import indexReducer from './index'
+import userReducer from './user'
 const reducer = combineReducers({
-    index: indexRouter
+    index: indexReducer,
+    user: userReducer
 })
 //创建store
 const store = createStore(reducer, applyMiddleware(thunk))
