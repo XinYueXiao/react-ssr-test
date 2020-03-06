@@ -18,7 +18,7 @@ import User from './container/User'
 export default [{
     path: '/',
     component: Index,
-    exact: true,
+    //exact: true,
     key: 'index'
 }, {
     path: '/about',

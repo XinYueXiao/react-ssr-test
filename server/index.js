@@ -56,8 +56,9 @@ app.get('*', (req, res) => {
     </body>
 </html>
 `)
+    }).catch(() => {
+        res.send('500报错了')
     })
-
 })
 app.listen(9093, () => {
     console.log('成功');

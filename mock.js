@@ -12,7 +12,7 @@ app.get('/api/user/info', (req, res) => {
     res.header('Content-Type', "application/json;charset=utf-8")
     res.json({
         code: 0,
-        data: { name: '王新月', isVIP: true }
+        data: { name: '王新月', isVip: true }
     })
 })
 app.get('/api/course/list', (req, res) => {
