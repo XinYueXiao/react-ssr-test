@@ -9,7 +9,19 @@ import { Route } from 'react-router-dom'
 import Index from './container/Index'
 import About from './container/About'
 
-export default (<div>
-    <Route path='/' exact component={Index}></Route>
-    <Route path='/about' exact component={About}></Route>
-</div>)
+// export default (<div>
+//     <Route path='/' exact component={Index}></Route>
+//     <Route path='/about' exact component={About}></Route>
+// </div>)
+//3.3改造成JS的配置，才能获取组件
+export default [{
+    path: '/',
+    component: Index,
+    exact: true,
+    key: 'index'
+}, {
+    path: '/about',
+    component: About,
+    exact: true,
+    key: 'about'
+}]

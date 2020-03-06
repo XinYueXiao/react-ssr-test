@@ -5,14 +5,16 @@
  */
 import React from 'react'
 import ReactDom from 'react-dom'
-import App from '../src/App'
-import { BrowserRouter } from 'react-router-dom'
-import store from '../src/store/store'
+import routes from '../src/App'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { getClientStore } from '../src/store/store'
 import { Provider } from 'react-redux'
+import Header from '../src/component/Header'
 //注入JS
-const Page = <Provider store={store}>
+const Page = <Provider store={getClientStore()}>
     <BrowserRouter>
-        {App}
+        <Header />
+        {routes.map(route => <Route {...route}></Route>)}
     </BrowserRouter>
 </Provider>
 ReactDom.hydrate(Page, document.getElementById('root'))

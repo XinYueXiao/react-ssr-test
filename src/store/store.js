@@ -12,4 +12,14 @@ const reducer = combineReducers({
 })
 //创建store
 const store = createStore(reducer, applyMiddleware(thunk))
-export default store;
+
+//export default store;
+export const getServerStore = () => {
+    //服务端通过server的dispatch获取数据
+    return createStore(reducer, applyMiddleware(thunk))
+}
+export const getClientStore = () => {
+    //通过window.__context获取数据
+    const defaultState = window.__context ? window.__context : {}
+    return createStore(reducer, defaultState, applyMiddleware(thunk))
+}

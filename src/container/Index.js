@@ -8,9 +8,9 @@ import { connect } from 'react-redux'
 import { getIndexList } from '../store/index'
 function Index(props) {
     const [count, setCount] = useState(0)
-    useEffect(() => {
-        props.getIndexList()
-    }, [])
+    // useEffect(() => {
+    //     props.getIndexList()
+    // }, [])
     return (
         <div>
             <h1>点击次数{count}</h1>
@@ -24,7 +24,10 @@ function Index(props) {
         </div>
     )
 }
-
+// 3.1发起异步请求，获取数据
+Index.loadData = (store) => {
+    return store.dispatch(getIndexList())
+}
 export default connect(
     state => ({ list: state.index.list }),
     { getIndexList }
