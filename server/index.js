@@ -19,6 +19,7 @@ app.get('*', (req, res) => {
     // 3.2获取根据路由渲染出组件，并且拿到loadData方法获取接口数据
     //存储网络请求
     const promises = []
+    //路由匹配
     routes.some(route => {
         const match = matchPath(req.path, route)
         if (match) {

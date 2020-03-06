@@ -8,9 +8,12 @@ import { connect } from 'react-redux'
 import { getIndexList } from '../store/index'
 function Index(props) {
     const [count, setCount] = useState(0)
-    // useEffect(() => {
-    //     props.getIndexList()
-    // }, [])
+    useEffect(() => {
+        //客户端渲染
+        if (!props.list.length) {
+            props.getIndexList()
+        }
+    }, [])
     return (
         <div>
             <h1>点击次数{count}</h1>
