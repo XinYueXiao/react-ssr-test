@@ -3,14 +3,29 @@
  * @Author: wangxinyue
  * @Date: 2020-03-06 18:46:54
  */
-import React, { useState } from 'react'
-function Index() {
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { getIndexList } from '../store/index'
+function Index(props) {
     const [count, setCount] = useState(0)
+    useEffect(() => {
+        props.getIndexList()
+    }, [])
     return (
         <div>
             <h1>点击次数{count}</h1>
             <button onClick={() => setCount(count + 1)}>点击增加+1</button>
+            <hr />
+            <h1>技能列表</h1>
+            <ul>
+                {props.list.map(one => <li key={one.id}>
+                    {one.name}</li>)}
+            </ul>
         </div>
     )
 }
-export default Index
+
+export default connect(
+    state => ({ list: state.index.list }),
+    { getIndexList }
+)(Index)

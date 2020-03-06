@@ -8,15 +8,20 @@ import { renderToString } from 'react-dom/server'
 import express from 'express'
 import App from '../src/App'
 import { StaticRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from '../src/store/store'
+
 const app = express()
 //设置静态资源目录
 app.use(express.static('public'))
 app.get('*', (req, res) => {
 
     const content = renderToString(
-        <StaticRouter location={req.url}>
-            {App}
-        </StaticRouter>
+        <Provider store={store}>
+            <StaticRouter location={req.url}>
+                {App}
+            </StaticRouter>
+        </Provider>
     )
     res.send(`
     <html>
