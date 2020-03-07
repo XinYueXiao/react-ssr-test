@@ -15,7 +15,7 @@ app.get('/api/user/info', (req, res) => {
         data: { name: '王新月', isVip: true }
     })
 })
-app.get('/api/course/list', (req, res) => {
+app.get('/api/course/list1', (req, res) => {
     //简单的跨域处理
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')

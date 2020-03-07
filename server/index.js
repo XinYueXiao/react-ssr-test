@@ -25,12 +25,18 @@ app.get('*', (req, res) => {
         if (match) {
             const { loadData } = route.component
             if (loadData) {
+                //处理Promise.all其中一个接口有错误的问题
+                // const promise = new Promise((resolve, reject) => {
+                //     loadData(store).then(resolve).catch(resolve)
+                // })
+                //promises.push(promise)
                 promises.push(loadData(store))
             }
         }
     })
     //等待网路请求结束在渲染
-    Promise.all(promises).then(() => {
+    //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
+    Promise.allSettled(promises).then(() => {
         //把react组件，解析成HTML
         const content = renderToString(
             <Provider store={store}>
