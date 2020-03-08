@@ -7,7 +7,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import express from 'express'
 import routes from '../src/App'
-import { StaticRouter, matchPath, Route } from 'react-router-dom'
+import { StaticRouter, matchPath, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { getServerStore } from '../src/store/store'
 import Header from '../src/component/Header'
@@ -18,6 +18,7 @@ const app = express()
 app.use(express.static('public'))
 app.use('/api', createProxyMiddleware({ target: 'http://localhost:9090', changeOrigin: true }));
 app.get('*', (req, res) => {
+    const context = {}
     // 3.2获取根据路由渲染出组件，并且拿到loadData方法获取接口数据
     //存储网络请求
     const promises = []
@@ -42,13 +43,23 @@ app.get('*', (req, res) => {
         //把react组件，解析成HTML
         const content = renderToString(
             <Provider store={store}>
-                <StaticRouter location={req.url}>
+                <StaticRouter location={req.url} context={context}>
                     <Header />
-                    {routes.map(route => <Route {...route}></Route>)}
+                    <Switch>
+                        {routes.map(route => <Route {...route}></Route>)}
+                    </Switch>
                 </StaticRouter>
             </Provider>
         )
-
+        //获取状态码,设置相应code
+        if (context.statusCode) {
+            //状态切换和页面调转
+            res.status(context.statusCode)
+        }
+        //重定向添加错误码
+        if (context.action == 'REPLACE') {
+            res.redirect(301, context.url)
+        }
         res.send(`
 <html>
     <head>

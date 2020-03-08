@@ -9,6 +9,8 @@ import { Route } from 'react-router-dom'
 import Index from './container/Index'
 import About from './container/About'
 import User from './container/User'
+import NoFound from './container/NoFound'
+
 import './App.css'
 // export default (<div>
 //     <Route path='/' exact component={Index}></Route>
@@ -30,4 +32,6 @@ export default [{
     component: User,
     exact: true,
     key: 'user'
-},]
+}, {
+    component: NoFound,
+}]

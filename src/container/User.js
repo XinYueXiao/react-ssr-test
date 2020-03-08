@@ -6,14 +6,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getUserInfo } from '../store/user'
+import { Redirect } from 'react-router-dom'
 function User(props) {
-    const { userInfo } = props
-    return (
-        <div>
-            <h1>{userInfo.isVip ? '尊敬的VIP客户' : ''}{userInfo.name}欢迎您</h1>
-        </div>
-    )
+    return <Redirect to='/about' ></Redirect>
+
 }
+// const { userInfo } = props
+// return (
+//     <div>
+//         <h1>{userInfo.isVip ? '尊敬的VIP客户' : ''}{userInfo.name}欢迎您</h1>
+//     </div>
+// )
 // 3.1发起异步请求，获取数据
 User.loadData = (store) => {
     return store.dispatch(getUserInfo())

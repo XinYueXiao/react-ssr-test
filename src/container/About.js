@@ -5,10 +5,9 @@
  */
 import React, { useState } from 'react'
 function About() {
-    const [count, setCount] = useState(0)
     return (
         <div>
-            about页面
+            登录页面,请登录!
         </div>
     )
 }
