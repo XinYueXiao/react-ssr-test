@@ -11,10 +11,12 @@ import { StaticRouter, matchPath, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { getServerStore } from '../src/store/store'
 import Header from '../src/component/Header'
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const store = getServerStore()
 const app = express()
 //设置静态资源目录
 app.use(express.static('public'))
+app.use('/api', createProxyMiddleware({ target: 'http://localhost:9090', changeOrigin: true }));
 app.get('*', (req, res) => {
     // 3.2获取根据路由渲染出组件，并且拿到loadData方法获取接口数据
     //存储网络请求

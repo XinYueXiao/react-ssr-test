@@ -8,20 +8,27 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import indexReducer from './index'
 import userReducer from './user'
+import axios from 'axios'
+const serverAxios = axios.create({
+    baseURL: 'http://localhost:9090/'
+})
+const clientAxios = axios.create({
+    baseURL: '/'
+})
 const reducer = combineReducers({
     index: indexReducer,
     user: userReducer
 })
 //创建store
-const store = createStore(reducer, applyMiddleware(thunk))
+//const store = createStore(reducer, applyMiddleware(thunk))
 
 //export default store;
 export const getServerStore = () => {
     //服务端通过server的dispatch获取数据
-    return createStore(reducer, applyMiddleware(thunk))
+    return createStore(reducer, applyMiddleware(thunk.withExtraArgument(serverAxios)))
 }
 export const getClientStore = () => {
     //通过window.__context获取数据
     const defaultState = window.__context ? window.__context : {}
-    return createStore(reducer, defaultState, applyMiddleware(thunk))
+    return createStore(reducer, defaultState, applyMiddleware(thunk.withExtraArgument(clientAxios)))
 }
