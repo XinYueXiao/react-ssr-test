@@ -32,7 +32,9 @@ app.get('*', (req, res) => {
         console.log('url参数判断是否开启csr');
         return csrRender(res)
     }
-    const context = {}
+    const context = {
+        css: []
+    }
     // 3.2获取根据路由渲染出组件，并且拿到loadData方法获取接口数据
     //存储网络请求
     const promises = []
@@ -74,11 +76,15 @@ app.get('*', (req, res) => {
         if (context.action == 'REPLACE') {
             res.redirect(301, context.url)
         }
+        const css = context.css.join('\n')
         res.send(`
 <html>
     <head>
         <meta charset='utf-8'/>
         <title>react ssr</title>
+        <style>
+        ${css}
+        </style>
     </head>
     <body>
         <div id="root">${content}</div> 
@@ -89,7 +95,7 @@ app.get('*', (req, res) => {
     </body>
 </html>
 `)
-    }).catch(() => {
+    }).catch((err) => {
         res.send('500报错了')
     })
 })

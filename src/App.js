@@ -10,8 +10,6 @@ import Index from './container/Index'
 import About from './container/About'
 import User from './container/User'
 import NoFound from './container/NoFound'
-
-import './App.css'
 // export default (<div>
 //     <Route path='/' exact component={Index}></Route>
 //     <Route path='/about' exact component={About}></Route>

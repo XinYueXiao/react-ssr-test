@@ -6,7 +6,11 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getIndexList } from '../store/index'
+import styles from './Index.css'
 function Index(props) {
+    if (props.staticContext) {
+        props.staticContext.css.push(styles._getCss())
+    }
     const [count, setCount] = useState(0)
     useEffect(() => {
         //客户端渲染
@@ -19,7 +23,7 @@ function Index(props) {
             <h1>点击次数{count}</h1>
             <button onClick={() => setCount(count + 1)}>点击增加+1</button>
             <hr />
-            <h1>技能列表</h1>
+            <h1 className={styles.title}>技能列表</h1>
             <ul>
                 {props.list.map(one => <li key={one.id}>
                     {one.name}</li>)}
