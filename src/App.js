@@ -34,4 +34,5 @@ export default [{
     key: 'user'
 }, {
     component: NoFound,
+    key: 'noFound'
 }]

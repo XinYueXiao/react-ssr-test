@@ -3,6 +3,8 @@
  * @Author: wangxinyue
  * @Date: 2020-03-06 19:07:12
  */
+import path from 'path'
+import fs from 'fs'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import express from 'express'
@@ -17,7 +19,19 @@ const app = express()
 //设置静态资源目录
 app.use(express.static('public'))
 app.use('/api', createProxyMiddleware({ target: 'http://localhost:9090', changeOrigin: true }));
+function csrRender(res) {
+    //获取打包后文件路径
+    const pathName = path.resolve(process.cwd(), 'public/index.csr.html')
+    //读取文件
+    const html = fs.readFileSync(pathName, 'utf-8')
+    //返回
+    return res.send(html)
+}
 app.get('*', (req, res) => {
+    if (req.query._mode == 'csr') {
+        console.log('url参数判断是否开启csr');
+        return csrRender(res)
+    }
     const context = {}
     // 3.2获取根据路由渲染出组件，并且拿到loadData方法获取接口数据
     //存储网络请求

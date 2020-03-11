@@ -15,7 +15,7 @@ const changeUserInfo = data => ({
 export const getUserInfo = server => {
     console.log("getUserInfo", getUserInfo)
     return (dispatch, getState, axiosInstance) => {
-        return axios.get('http://localhost:9090/api/user/info')
+        return axios.get('/api/user/info')
             .then(res => {
                 const { data } = res.data
                 console.log("用户data--", data)
