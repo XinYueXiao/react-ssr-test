@@ -1,5 +1,6 @@
 /*
- * @Descripttion:
+ * @Descripttion:puppeteer解决ssr
+ 其他方案:https://github.com/chrisvfritz/prerender-spa-plugin#readme
  * @Author: wangxinyue
  * @Date: 2020-03-16 12:39:04
  */
